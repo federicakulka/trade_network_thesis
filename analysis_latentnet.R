@@ -1,0 +1,10 @@
+library(readr)
+library(latentnet)
+set.seed(3141)
+
+edge_list <- read_csv("g_19_edge_list.csv")
+lnet <- network(edge_list, directed = TRUE)
+summary(lnet)
+lnet_fit <- ergmm(lnet ~ euclidean(d = 2, G = 2), control = control.ergmm(burnin = 1000), verbose = TRUE)
+plot(lnet_fit)
+summary(lnet_fit)
